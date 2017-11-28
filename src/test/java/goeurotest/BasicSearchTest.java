@@ -13,21 +13,7 @@ public class BasicSearchTest extends TestBase {
 	@Test
 	public void simpleSearch() throws InterruptedException {
 
-		page.search("Berlin,", "Frankfurt am Main", true);
+		page.search("Berlin,", "Prague", true);
 	}
 
-	// @Test
-	// public void trainsSearch() {
-	// headerMenu.goTrains();
-	// }
-	//
-	// @Test
-	// public void busesSearch() {
-	// headerMenu.goBuses();
-	// }
-	//
-	// @Test
-	// public void flightsSearch() {
-	// headerMenu.goFlights();
-	// }
 }

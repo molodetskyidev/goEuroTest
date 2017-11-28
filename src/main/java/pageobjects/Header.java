@@ -51,6 +51,15 @@ public class Header {
 		driver.findElement(By.xpath("//div[@id='langSwitcher']//a[@data-st='" + languageValue + "']")).click();
 	}
 
+	public String getLanguage() {
+		String languageSelected, languageSelectedFlag;
+		languageSelectedFlag = driver.findElement(language).getAttribute("class");
+		int i = languageSelectedFlag.length();
+		languageSelected = languageSelectedFlag.substring(i - 2);
+		System.out.println(languageSelected);
+		return languageSelected;
+	}
+
 	public String getCurrency() {
 		String currencySelected, currencySelectedSign;
 		// get selected currency sign from the header

@@ -72,13 +72,22 @@ public class HomePageTest extends TestBase {
 	@Test
 	// this test check that user can change currency on home page
 	public void changeCurrency() {
-		headerMenu.setCurrency("RUB");
-		String selectedCurrency = headerMenu.getCurrency();
+		headerMenu.setCurrency("RUB"); // set currency RUB
+		String selectedCurrency = headerMenu.getCurrency(); // check current
+															// currency on the
+															// page
+		// check that current currency = currency we set
 		Assert.assertEquals(selectedCurrency, "RUB", "Currency is not set as expected!");
 	}
 
 	@Test
+	// this test check that user can change language on home page
 	public void changeLanguage() {
 		headerMenu.setLanguage("DE");
+		String selectedLanguage = headerMenu.getLanguage();// check current
+															// language on the
+															// page
+		// check that current language = language we set
+		Assert.assertEquals(selectedLanguage, "DE", "Language is not set as expected!");
 	}
 }
