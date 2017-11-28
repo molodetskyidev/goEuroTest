@@ -76,4 +76,9 @@ public class HomePageTest extends TestBase {
 		String selectedCurrency = headerMenu.getCurrency();
 		Assert.assertEquals(selectedCurrency, "RUB", "Currency is not set as expected!");
 	}
+
+	@Test
+	public void changeLanguage() {
+		headerMenu.setLanguage("DE");
+	}
 }

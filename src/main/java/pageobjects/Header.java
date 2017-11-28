@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 
 public class Header {
 	WebDriver driver;
+	// TODO it appeared that href for other languages are another, so this one
+	// is working only for English should think how to change it to be common
 	By trainsLink = By.xpath("//li[@class='mode-title']/a[@href='/trains/']"); // Trains
 																				// link
 	By flightsLink = By.xpath("//li[@class='mode-title']/a[@href='/flights/']"); // Flights
@@ -13,7 +15,8 @@ public class Header {
 																				// link
 	By currency = By.xpath("//div[@id='currencySwitcher']//nav/p/span"); // currency
 																			// switcher
-	By currencyDropDown = By.xpath("//li[@data-id='EUR']"); //
+	By language = By.xpath("//p[@id='dropMenuToggle']/span[contains(@class,'flag')]"); // language
+																						// switcher
 
 	// click on Trains link
 	public void goTrains() {
@@ -37,6 +40,15 @@ public class Header {
 		// in opened dropdown menu select corresponed currency
 		driver.findElement(By.xpath("//li[@data-id='" + currencyValue + "']")).click();
 
+	}
+
+	// change language - possible values: RU, UK, ES, IT, PL, CZ, PT, DE, FR,
+	// NL, CN, SE
+	public void setLanguage(String languageValue) {
+		// click on the flag
+		driver.findElement(language).click();
+		// in opened dropdown menu select corresponded language
+		driver.findElement(By.xpath("//div[@id='langSwitcher']//a[@data-st='" + languageValue + "']")).click();
 	}
 
 	public String getCurrency() {
