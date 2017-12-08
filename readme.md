@@ -46,6 +46,7 @@ Constraints:
   
    - Control Version System: git, using github as remote repository
    - Automation tool: Selenium + WebDriver
+   - Testing framework: TestNG
    - Programming language: Java
    - Build tool: maven
   
