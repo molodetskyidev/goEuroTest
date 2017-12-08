@@ -18,14 +18,18 @@ public class TestBase {
 		switch (driverType) {
 		case "firefox":
 			driver = new FirefoxDriver();
+			break;
 		case "chrome":
 			driver = new ChromeDriver();
+			break;
 		case "htmlunit":
 			driver = new HtmlUnitDriver();
+			break;
 		default:
 			driver = new HtmlUnitDriver();
+			break;
 		}
-
+		System.out.println(baseUrl);
 		driver.get(baseUrl); // open url in selected browser
 		driver.manage().window().maximize(); // maximize window
 		// wait 10 seconds until page is loaded
