@@ -41,6 +41,16 @@ Constraints:
  9. Also there can be "Alternative dates" section in search result. On this section check:
    - Search results are grouped by date
    - For each date search result is sorted by price from cheapest to the most expensive
+ 
+  ### Tools used for test automation
+  
+   - Control Version System: git, using github as remote repository
+   - Automation tool: Selenium + WebDriver
+   - Programming language: Java
+   - Build tool: maven
+  
+  ### Automation technologies and approach
+  
   
   
   
