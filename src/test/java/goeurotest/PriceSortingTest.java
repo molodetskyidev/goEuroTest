@@ -7,17 +7,17 @@ import pageobjects.Header;
 import pageobjects.SearchPage;
 import pageobjects.TestBase;
 
-public class BasicSearchTest extends TestBase {
+public class PriceSortingTest extends TestBase {
 	SearchPage page = new SearchPage(driver);
 	Header headerMenu = new Header(driver);
 
 	@Parameters({ "browser", "url" })
-	public BasicSearchTest(String browser, String url) {
+	public PriceSortingTest(String browser, String url) {
 		super(browser, url);
 	}
 
 	@Test
-	public void simpleSearch() throws InterruptedException {
+	public void basicScenario() throws InterruptedException {
 
 		page.search("Berlin,", "Prague", true);
 	}

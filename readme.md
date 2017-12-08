@@ -52,6 +52,9 @@ Constraints:
   
   ### Automation technologies and approach
   
+   - PageObject pattern - allows to separate test and UAT
+   - Data-Driven testing - test data is separated from the test and taken from csv file
+  
   
   
   

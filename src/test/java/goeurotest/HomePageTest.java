@@ -1,6 +1,7 @@
 package goeurotest;
 
 import org.testng.Assert;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import pageobjects.Header;
@@ -10,6 +11,11 @@ public class HomePageTest extends TestBase {
 	String pageTitle;
 	String currency;
 	Header headerMenu = new Header(driver);
+
+	@Parameters({ "browser", "url" })
+	public HomePageTest(String browser, String url) {
+		super(browser, url);
+	}
 
 	@Test
 	// This test verifies if page is changed to European Trains page while user
