@@ -19,7 +19,7 @@ public class BasicSearchTest extends TestBase {
 	@Test
 	public void simpleSearch() throws InterruptedException {
 
-		page.search("Berlin,", "Prague", true);
+		page.search("Berlin,", "Prague");
 	}
 
 }

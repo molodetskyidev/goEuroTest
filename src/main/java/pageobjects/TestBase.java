@@ -29,10 +29,9 @@ public class TestBase {
 			driver = new HtmlUnitDriver();
 			break;
 		}
-		System.out.println(baseUrl);
 		driver.get(baseUrl); // open url in selected browser
 		driver.manage().window().maximize(); // maximize window
-		// wait 10 seconds until page is loaded
+		// wait 10 seconds until searchPage is loaded
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}
 
