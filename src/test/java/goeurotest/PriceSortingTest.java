@@ -112,7 +112,6 @@ public class PriceSortingTest extends TestBase {
 				// remember last price on the current page
 
 				lastPrice = sortedPrices[sortedPrices.length - 1];
-				System.out.println(lastPrice);
 			}
 
 		}

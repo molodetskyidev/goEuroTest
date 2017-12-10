@@ -90,8 +90,8 @@ public class SearchResultPage {
 		int sizeAD = 0;
 		List<WebElement> mainPrices = driver.findElements(mainPrice);
 		List<WebElement> restPrices = driver.findElements(restPrice);
+		// if there is alternative dates
 		if (AnyPage.isElementExist(driver, alternativeDates)) {
-			System.out.println("there is alternative dates!");
 			List<WebElement> mainPricesAD = driver.findElements(alternativeDatesMainPrices);
 			List<WebElement> restPricesAD = driver.findElements(alternativeDatesRestPrices);
 			sizeAD = mainPricesAD.size();
