@@ -3,6 +3,7 @@ package goeurotest;
 import java.util.Arrays;
 
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -16,18 +17,27 @@ public class PriceSortingTest extends TestBase {
 	SearchPage searchPage = new SearchPage(driver);
 	Header headerMenu = new Header(driver);
 	SearchResultPage searchResultPage = new SearchResultPage(driver);
+	String[] expectedCities = new String[] { "Berlin", "Prague" };
+	String[] actualCities;
+	double[] actualPrices;
+	double[] sortedPrices;
+	double lastPrice = 0;
 
 	@Parameters({ "browser", "url" })
 	public PriceSortingTest(String browser, String url) {
 		super(browser, url);
 	}
 
+	@DataProvider(name = "testData")
+	public static Object[][] testData() {
+
+		return new Object[][] { { "trains" }, { "flights" }, { "buses" } };
+
+	}
+
 	@Test
 	public void basicScenario() throws InterruptedException {
-		String[] expectedCities = new String[] { "Berlin", "Prague" };
-		String[] actualCities;
-		double[] actualPrices;
-		double[] sortedPrices;
+
 		// make search
 		searchPage.search("Berlin,", "Prague");
 		// wait until search is completed
@@ -52,13 +62,29 @@ public class PriceSortingTest extends TestBase {
 		} catch (Exception e) {
 			System.out.println("unstoppable");
 		}
-		// collect prices on active tab
+		// collect prices on trains tab
+		collectAndComparePrices("trains");
+		// collect prices on flights tab
+		collectAndComparePrices("trains");
+		// collect prices on buses tab
+		collectAndComparePrices("buses");
+
+	}
+
+	private void collectAndComparePrices(String tabName) {
+		searchResultPage.goToTab(tabName);
+		// TODO for buses there should be verification if it's Alternative dates
+		// or
+		// not and for Alternative dates sorting should be verified separately
 		actualPrices = searchResultPage.getPricesFromSearchResult();
 		// sort prices and compare sorted prices with price order on the page
 		sortedPrices = Utils.sortPrices(actualPrices);
-		Assert.assertTrue(Arrays.equals(actualPrices, sortedPrices), "Prices are not sorted!");
+		Assert.assertTrue(Arrays.equals(actualPrices, sortedPrices),
+				"Prices are not sorted! Expected: " + sortedPrices.toString() + " but was " + actualPrices.toString());
 		// remember last price on the current page
-		double lastPrice = sortedPrices[sortedPrices.length - 1];
+		if (sortedPrices.length > 0) {
+			lastPrice = sortedPrices[sortedPrices.length - 1];
+		}
 		// go to next pages if there is Next button
 		while (searchResultPage.isThereMorePages()) {
 			searchResultPage.clickNext();
@@ -74,95 +100,19 @@ public class PriceSortingTest extends TestBase {
 			// sort prices and compare sorted prices with price order on the
 			// page
 			sortedPrices = Utils.sortPrices(actualPrices);
-			Assert.assertTrue(Arrays.equals(actualPrices, sortedPrices), "Prices are not sorted!");
+			Assert.assertTrue(Arrays.equals(actualPrices, sortedPrices),
+					"Prices are not sorted on " + tabName + " Expected: " + Utils.priceToString(sortedPrices)
+							+ " but was " + Utils.priceToString(actualPrices));
 			// check if first price on new page is less than last price on
 			// previous page
-			Assert.assertFalse(lastPrice > sortedPrices[sortedPrices.length - 1], "Price on current page" + lastPrice
-					+ " is less than on previous page (" + sortedPrices[sortedPrices.length - 1] + ")");
-			// remember last price on the current page
-			lastPrice = sortedPrices[sortedPrices.length - 1];
+			if (sortedPrices.length > 0) {
+				Assert.assertFalse(lastPrice > sortedPrices[sortedPrices.length - 1], "Price on current page"
+						+ lastPrice + " is less than on previous page (" + sortedPrices[sortedPrices.length - 1] + ")");
+				// remember last price on the current page
 
-		}
-		// go to next Tab
-		searchResultPage.goToFlightsTab();
-		// TODO replace it by some type of wait
-		try {
-			Thread.sleep(10000);
-		} catch (Exception e) {
-			System.out.println("unstoppable");
-		}
-		// collect prices on active tab
-		actualPrices = searchResultPage.getPricesFromSearchResult();
-		// sort prices and compare sorted prices with price order on the page
-		sortedPrices = Utils.sortPrices(actualPrices);
-		Assert.assertTrue(Arrays.equals(actualPrices, sortedPrices), "Prices are not sorted!");
-
-		// remember last price on the current page
-		lastPrice = sortedPrices[sortedPrices.length - 1];
-		// go to next pages if there is Next button
-		while (searchResultPage.isThereMorePages()) {
-			searchResultPage.clickNext();
-			// TODO replace it by some type of wait
-			try {
-				Thread.sleep(10000);
-			} catch (Exception e) {
-				System.out.println("unstoppable");
+				lastPrice = sortedPrices[sortedPrices.length - 1];
 			}
 
-			// collect prices on active tab
-			actualPrices = searchResultPage.getPricesFromSearchResult();
-			// sort prices and compare sorted prices with price order on the
-			// page
-			sortedPrices = Utils.sortPrices(actualPrices);
-			Assert.assertTrue(Arrays.equals(actualPrices, sortedPrices), "Prices are not sorted!");
-			// check if first price on new page is less than last price on
-			// previous page
-			Assert.assertFalse(lastPrice > sortedPrices[sortedPrices.length - 1], "Price on current page" + lastPrice
-					+ " is less than on previous page (" + sortedPrices[sortedPrices.length - 1] + ")");
-			// remember last price on the current page
-			lastPrice = sortedPrices[sortedPrices.length - 1];
-
 		}
-		// go to next Tab
-		searchResultPage.goToBusesTab();
-		// TODO replace it by some type of wait
-		try {
-			Thread.sleep(10000);
-		} catch (Exception e) {
-			System.out.println("unstoppable");
-		}
-		// collect prices on active tab
-		actualPrices = searchResultPage.getPricesFromSearchResult();
-		// sort prices and compare sorted prices with price order on the page
-		sortedPrices = Utils.sortPrices(actualPrices);
-		Assert.assertTrue(Arrays.equals(actualPrices, sortedPrices), "Prices are not sorted!");
-
-		// remember last price on the current page
-		lastPrice = sortedPrices[sortedPrices.length - 1];
-		// go to next pages if there is Next button
-		while (searchResultPage.isThereMorePages()) {
-			searchResultPage.clickNext();
-			// TODO replace it by some type of wait
-			try {
-				Thread.sleep(10000);
-			} catch (Exception e) {
-				System.out.println("unstoppable");
-			}
-
-			// collect prices on active tab
-			actualPrices = searchResultPage.getPricesFromSearchResult();
-			// sort prices and compare sorted prices with price order on the
-			// page
-			sortedPrices = Utils.sortPrices(actualPrices);
-			Assert.assertTrue(Arrays.equals(actualPrices, sortedPrices), "Prices are not sorted!");
-			// check if first price on new page is less than last price on
-			// previous page
-			Assert.assertFalse(lastPrice > sortedPrices[sortedPrices.length - 1], "Price on current page" + lastPrice
-					+ " is less than on previous page (" + sortedPrices[sortedPrices.length - 1] + ")");
-			// remember last price on the current page
-			lastPrice = sortedPrices[sortedPrices.length - 1];
-
-		}
-
 	}
 }

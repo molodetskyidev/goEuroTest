@@ -100,6 +100,21 @@ public class SearchResultPage {
 		return AnyPage.isElementExist(driver, nextButton);
 	}
 
+	public void goToTab(String tabName) {
+		switch (tabName) {
+		case "trains":
+			driver.findElements(tabs).get(0).click();
+			break;
+		case "flights":
+			driver.findElements(tabs).get(1).click();
+			break;
+		case "buses":
+			driver.findElements(tabs).get(2).click();
+			break;
+		}
+
+	}
+
 	public void goToTrainsTab() {
 		driver.findElements(tabs).get(0).click();
 	}

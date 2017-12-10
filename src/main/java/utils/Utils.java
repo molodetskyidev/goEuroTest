@@ -41,4 +41,14 @@ public class Utils {
 
 	}
 
+	public static String priceToString(double[] prices) {
+		StringBuffer priceStr = new StringBuffer();
+		for (double price : prices) {
+			priceStr.append(Double.toString(price) + ";");
+		}
+
+		return priceStr.toString();
+
+	}
+
 }

@@ -5,6 +5,8 @@ import org.testng.annotations.Test;
 import utils.Utils;
 
 public class utilTest {
+	double[] test = { 1329.0, 31.1, 72.99 };
+
 	@Test
 	public void convertTest() {
 
@@ -16,8 +18,15 @@ public class utilTest {
 	}
 
 	@Test
+	public void priceToString() {
+
+		String testStr = Utils.priceToString(test);
+		System.out.println(testStr);
+	}
+
+	@Test
 	public void sortTest() {
-		double[] d = { 31.2, 31.1, 72.99 };
+		double[] d = { 1329.0, 31.1, 72.99 };
 		double[] d2 = Utils.sortPrices(d);
 		for (double dd : d2) {
 			System.out.println(dd);
