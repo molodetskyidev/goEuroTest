@@ -3,8 +3,20 @@ package utils;
 import java.util.Arrays;
 
 public class Utils {
-	public static double[] priceConvertor(String[] pricesStr) {
+	public static double[] priceConvertor(String[] pricesStr, String currency) {
 		double[] pricesDouble = new double[pricesStr.length];
+		switch (currency) {
+		case "EUR":
+			for (String priceStr : pricesStr) {
+				priceStr.replace(",", "");
+			}
+			break;
+		default:
+			for (String priceStr : pricesStr) {
+				priceStr.replace(",", "");
+			}
+			break;
+		}
 		for (int i = 0; i < pricesStr.length; i++) {
 			pricesDouble[i] = Double.parseDouble(pricesStr[i]);
 		}

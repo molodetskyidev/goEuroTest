@@ -92,7 +92,7 @@ public class SearchResultPage {
 			pricesStr[i] = price.getText() + restPrices.get(i).getText();
 			i = i + 1;
 		}
-		double[] pricesDouble = Utils.priceConvertor(pricesStr);
+		double[] pricesDouble = Utils.priceConvertor(pricesStr, "EUR");
 		return pricesDouble;
 	}
 
