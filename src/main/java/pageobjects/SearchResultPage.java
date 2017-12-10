@@ -36,6 +36,12 @@ public class SearchResultPage {
 	By nextButton = By.xpath("//span[@data-key='dw.paging.next']");
 	// tab elements
 	By tabs = By.xpath("//a[@data-test='ResutlTab']");
+	// Alternative dates separator
+	By alternativeDates = By.xpath("//div[@class='Results__alternativeResultsDivider___CLC0m']");
+	By alternativeDatesMainPrices = By.xpath(
+			"//div[@class='Results__alternativeResultsDivider___CLC0m']//following::span[@data-test='price']//span[@data-test='JourneyDetailsPriceMain']");
+	By alternativeDatesRestPrices = By.xpath(
+			"//div[@class='Results__alternativeResultsDivider___CLC0m']//following::span[@data-test='price']//span[@data-test='JourneyDetailsPriceMain']//following-sibling::span");
 
 	public String[] getSearchResultCities() {
 		String depCity = driver.findElement(depatureCitySearchResult).getText();
@@ -81,16 +87,19 @@ public class SearchResultPage {
 	}
 
 	public double[] getPricesFromSearchResult() {
-
+		int sizeAD = 0;
 		List<WebElement> mainPrices = driver.findElements(mainPrice);
 		List<WebElement> restPrices = driver.findElements(restPrice);
+		if (AnyPage.isElementExist(driver, alternativeDates)) {
+			System.out.println("there is alternative dates!");
+			List<WebElement> mainPricesAD = driver.findElements(alternativeDatesMainPrices);
+			List<WebElement> restPricesAD = driver.findElements(alternativeDatesRestPrices);
+			sizeAD = mainPricesAD.size();
+		}
 
-		String[] pricesStr = new String[mainPrices.size()];
-
-		int i = 0;
-		for (WebElement price : mainPrices) {
-			pricesStr[i] = price.getText() + restPrices.get(i).getText();
-			i = i + 1;
+		String[] pricesStr = new String[mainPrices.size() - sizeAD];
+		for (int i = 0; i < mainPrices.size() - sizeAD; i++) {
+			pricesStr[i] = mainPrices.get(i).getText() + restPrices.get(i).getText();
 		}
 		double[] pricesDouble = Utils.priceConvertor(pricesStr, "EUR");
 		return pricesDouble;
@@ -129,6 +138,12 @@ public class SearchResultPage {
 
 	public void clickNext() {
 		driver.findElement(nextButton).click();
+	}
+
+	public boolean isAlternativeDates() {
+
+		return AnyPage.isElementExist(driver, alternativeDates);
+
 	}
 
 }

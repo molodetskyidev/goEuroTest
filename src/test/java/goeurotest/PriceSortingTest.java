@@ -80,7 +80,8 @@ public class PriceSortingTest extends TestBase {
 		// sort prices and compare sorted prices with price order on the page
 		sortedPrices = Utils.sortPrices(actualPrices);
 		Assert.assertTrue(Arrays.equals(actualPrices, sortedPrices),
-				"Prices are not sorted! Expected: " + sortedPrices.toString() + " but was " + actualPrices.toString());
+				"Prices are not sorted on " + tabName + "Tab. Expected: " + Utils.priceToString(sortedPrices)
+						+ " but was " + Utils.priceToString(actualPrices));
 		// remember last price on the current page
 		if (sortedPrices.length > 0) {
 			lastPrice = sortedPrices[sortedPrices.length - 1];
@@ -101,7 +102,7 @@ public class PriceSortingTest extends TestBase {
 			// page
 			sortedPrices = Utils.sortPrices(actualPrices);
 			Assert.assertTrue(Arrays.equals(actualPrices, sortedPrices),
-					"Prices are not sorted on " + tabName + " Expected: " + Utils.priceToString(sortedPrices)
+					"Prices are not sorted on " + tabName + "Tab. Expected: " + Utils.priceToString(sortedPrices)
 							+ " but was " + Utils.priceToString(actualPrices));
 			// check if first price on new page is less than last price on
 			// previous page
@@ -111,6 +112,7 @@ public class PriceSortingTest extends TestBase {
 				// remember last price on the current page
 
 				lastPrice = sortedPrices[sortedPrices.length - 1];
+				System.out.println(lastPrice);
 			}
 
 		}
