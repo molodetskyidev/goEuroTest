@@ -77,7 +77,7 @@ public class PriceSortingTest extends TestBase {
 			Assert.assertTrue(Arrays.equals(actualPrices, sortedPrices), "Prices are not sorted!");
 			// check if first price on new page is less than last price on
 			// previous page
-			Assert.assertTrue(lastPrice < sortedPrices[sortedPrices.length - 1], "Price on current page" + lastPrice
+			Assert.assertFalse(lastPrice > sortedPrices[sortedPrices.length - 1], "Price on current page" + lastPrice
 					+ " is less than on previous page (" + sortedPrices[sortedPrices.length - 1] + ")");
 			// remember last price on the current page
 			lastPrice = sortedPrices[sortedPrices.length - 1];
@@ -117,7 +117,7 @@ public class PriceSortingTest extends TestBase {
 			Assert.assertTrue(Arrays.equals(actualPrices, sortedPrices), "Prices are not sorted!");
 			// check if first price on new page is less than last price on
 			// previous page
-			Assert.assertTrue(lastPrice < sortedPrices[sortedPrices.length - 1], "Price on current page" + lastPrice
+			Assert.assertFalse(lastPrice > sortedPrices[sortedPrices.length - 1], "Price on current page" + lastPrice
 					+ " is less than on previous page (" + sortedPrices[sortedPrices.length - 1] + ")");
 			// remember last price on the current page
 			lastPrice = sortedPrices[sortedPrices.length - 1];
@@ -157,7 +157,7 @@ public class PriceSortingTest extends TestBase {
 			Assert.assertTrue(Arrays.equals(actualPrices, sortedPrices), "Prices are not sorted!");
 			// check if first price on new page is less than last price on
 			// previous page
-			Assert.assertTrue(lastPrice < sortedPrices[sortedPrices.length - 1], "Price on current page" + lastPrice
+			Assert.assertFalse(lastPrice > sortedPrices[sortedPrices.length - 1], "Price on current page" + lastPrice
 					+ " is less than on previous page (" + sortedPrices[sortedPrices.length - 1] + ")");
 			// remember last price on the current page
 			lastPrice = sortedPrices[sortedPrices.length - 1];

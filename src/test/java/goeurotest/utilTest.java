@@ -8,7 +8,7 @@ public class utilTest {
 	@Test
 	public void convertTest() {
 
-		String[] str = { "29.00", "31.10", "72.99" };
+		String[] str = { "1,329.00", "31.10", "72.99" };
 		double[] d = Utils.priceConvertor(str, "EUR");
 		for (double dd : d) {
 			System.out.println(dd);

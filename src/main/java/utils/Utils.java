@@ -7,13 +7,13 @@ public class Utils {
 		double[] pricesDouble = new double[pricesStr.length];
 		switch (currency) {
 		case "EUR":
-			for (String priceStr : pricesStr) {
-				priceStr.replace(",", "");
+			for (int i = 0; i < pricesStr.length; i++) {
+				pricesStr[i] = pricesStr[i].replace(",", "");
 			}
 			break;
 		default:
-			for (String priceStr : pricesStr) {
-				priceStr.replace(",", "");
+			for (int i = 0; i < pricesStr.length; i++) {
+				pricesStr[i] = pricesStr[i].replace(",", "");
 			}
 			break;
 		}
