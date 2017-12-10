@@ -41,13 +41,7 @@ public class PriceSortingTest extends TestBase {
 		// make search
 		searchPage.search("Berlin,", "Prague");
 		// wait until search is completed
-		// searchResultPage.waitForSearchResult();
-		// TODO replace it by some type of wait
-		try {
-			Thread.sleep(10000);
-		} catch (Exception e) {
-			System.out.println("unstoppable");
-		}
+		searchResultPage.waitForSearchResult();
 		// take cities names on search result page
 		actualCities = searchResultPage.getSearchResultCities();
 		// check departure city is the same we are searching
@@ -56,11 +50,12 @@ public class PriceSortingTest extends TestBase {
 		Assert.assertEquals(actualCities[1], expectedCities[1], "Arrival city in search result is wrong!");
 		// Click on Cheapest sorting option
 		searchResultPage.setSorting("Cheapest");
-		// TODO replace it by some type of wait
+		// wait until search is refreshed
+		// searchResultPage.waitForSearchResult();
 		try {
 			Thread.sleep(10000);
 		} catch (Exception e) {
-			System.out.println("unstoppable");
+			System.out.println(e);
 		}
 		// collect prices on trains tab
 		collectAndComparePrices("trains");
@@ -71,7 +66,7 @@ public class PriceSortingTest extends TestBase {
 
 	}
 
-	private void collectAndComparePrices(String tabName) {
+	private void collectAndComparePrices(String tabName) throws InterruptedException {
 		searchResultPage.goToTab(tabName);
 		// TODO for buses there should be verification if it's Alternative dates
 		// or
@@ -90,6 +85,7 @@ public class PriceSortingTest extends TestBase {
 		while (searchResultPage.isThereMorePages()) {
 			searchResultPage.clickNext();
 			// TODO replace it by some type of wait
+			searchResultPage.waitForSearchResult();
 			try {
 				Thread.sleep(10000);
 			} catch (Exception e) {

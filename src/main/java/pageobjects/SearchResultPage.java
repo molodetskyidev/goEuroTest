@@ -5,6 +5,8 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import utils.Utils;
 
@@ -51,16 +53,20 @@ public class SearchResultPage {
 	}
 
 	public void waitForSearchResult() throws InterruptedException {
-		// List<WebElement> selectButton;
-		// WebDriverWait wait = new WebDriverWait(driver, 100);
-		//
-		// selectButton = driver.findElements(selectButtons);
-		// int i = selectButton.size();
-		// System.out.println("select button" + (i - 1) + " " +
-		// selectButton.get(i - 1).isEnabled());
-		// System.out.println("waiting for " + i + " select buttons");
-		// wait.until(ExpectedConditions.elementToBeClickable(selectButton.get(i
-		// - 1)));
+		List<WebElement> selectButton;
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+
+		selectButton = driver.findElements(selectButtons);
+
+		int i = selectButton.size();
+		System.out.println(i);
+		while (i == 0) {
+			System.out.println("no buttons found");
+			wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(selectButtons));
+		}
+		System.out.println("select button" + (i - 1) + " " + selectButton.get(i - 1).isEnabled());
+		System.out.println("waiting for " + i + " select buttons");
+		wait.until(ExpectedConditions.elementToBeClickable(selectButton.get(i - 1)));
 
 	}
 
